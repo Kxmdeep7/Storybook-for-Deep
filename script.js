@@ -60,4 +60,19 @@ window.addEventListener('scroll', () => {
   if (lastPageTop < window.innerHeight * 0.3) {
     document.getElementById('page-flip').classList.add('active');
   }
+
+// Page flip effect for last section
+window.addEventListener('scroll', () => {
+    if (Math.random() > 0.85) createFloatingLine();
+
+    const lastPage = document.getElementById('final-page');
+    const lastPageTop = lastPage.getBoundingClientRect().top;
+
+    if (lastPageTop < window.innerHeight * 0.3) {
+        document.getElementById('page-flip').classList.add('active');
+    }
+});
+
+  
+
 });
