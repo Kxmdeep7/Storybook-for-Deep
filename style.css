@@ -1,92 +1,79 @@
 :root {
     --night-sky: #05080f; 
-    --moonlight: #ffffff; 
+    --moon-color: #fffce1; 
 }
 
 body, html {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     background-color: var(--night-sky) !important;
-    color: var(--moonlight);
+    color: #ffffff;
     font-family: 'Playfair Display', serif;
-    font-style: italic; 
+    font-style: italic;
     overflow-x: hidden;
 }
 
-/* Welcome Overlay Fixed */
+/* Automatic Welcome Fade */
+@keyframes autoFadeOut {
+    0% { opacity: 1; visibility: visible; }
+    85% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
 #welcome-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: var(--night-sky);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    transition: opacity 2s ease, visibility 2s;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
     text-align: center;
-    padding: 20px;
+    animation: autoFadeOut 6s forwards; /* 5s stay + 1s fade */
 }
 
-.fade-out {
-    opacity: 0 !important;
-    visibility: hidden;
-    pointer-events: none; /* Allows scrolling during fade */
+.welcome-box p { font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin: 15px; }
+
+/* The Crescent Moon */
+.moon-container { position: fixed; top: 5%; right: 10%; z-index: 1; }
+.moon {
+    width: 60px; height: 60px; border-radius: 50%;
+    box-shadow: 15px 10px 0 0 var(--moon-color); 
+    transform: rotate(-15deg);
+}
+.moon-glow {
+    position: absolute; top: 10px; right: -15px; width: 60px; height: 60px;
+    border-radius: 50%; background: transparent;
+    box-shadow: 0 0 30px rgba(255, 252, 225, 0.2); z-index: -1;
 }
 
-.welcome-box p {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.2rem;
-    margin: 15px 0;
-}
-
-.scroll-hint { display: block; margin-top: 30px; font-size: 0.9rem; opacity: 0.6; font-style: normal; }
-
-/* Animations */
+/* Stardust Animation */
 @keyframes stardustFade {
-    0% { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
-    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
+.story-section {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 10%; text-align: center;
+    opacity: 0;
+}
+
+.story-section.visible { animation: stardustFade 3.5s forwards; }
+
+h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; font-style: normal; margin-bottom: 25px; }
+p { font-size: 1.4rem; line-height: 1.8; }
+.signature { margin-top: 50px; font-family: 'Dancing Script', cursive; font-size: 2.8rem; font-style: normal; }
+
+/* Shooting Stars */
+.shooting-star {
+    position: fixed; height: 2px;
+    background: linear-gradient(90deg, #fff, transparent);
+    z-index: 2; pointer-events: none;
 }
 
 @keyframes shoot {
     0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 0; }
     10% { opacity: 1; }
-    100% { transform: translateX(-100vw) translateY(70vh) rotate(-35deg); opacity: 0; }
-}
-
-.star { position: fixed; background: white; border-radius: 50%; z-index: 1; }
-
-.shooting-star {
-    position: fixed; height: 2px;
-    background: linear-gradient(90deg, #fff, transparent);
-    z-index: 2; pointer-events: none; opacity: 0;
-}
-
-.story-section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 10%;
-    text-align: center;
-    opacity: 0;
-}
-
-.story-section.visible { animation: stardustFade 3.5s ease-out forwards; }
-
-h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; font-style: normal; margin-bottom: 25px; }
-p { font-size: 1.4rem; line-height: 1.8; }
-em { display: block; margin: 10px 0; opacity: 0.7; }
-
-.signature { margin-top: 50px; font-family: 'Dancing Script', cursive; font-size: 2.8rem; font-style: normal; }
-
-.floating-line {
-    position: fixed; font-family: 'Dancing Script', cursive; font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.25); z-index: 5; pointer-events: none; opacity: 0;
+    100% { transform: translateX(-100vw) translateY(60vh) rotate(-35deg); opacity: 0; }
 }
 
 @media (max-width: 600px) {
