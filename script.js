@@ -1,56 +1,57 @@
-// Fade-in pages
-const pages = document.querySelectorAll('.page');
-
-function checkVisible() {
-  const triggerBottom = window.innerHeight * 0.85;
-  pages.forEach(page => {
-    const pageTop = page.getBoundingClientRect().top;
-    if (pageTop < triggerBottom) page.classList.add('visible');
-  });
-}
-
-window.addEventListener('scroll', checkVisible);
-window.addEventListener('load', checkVisible);
-
-// Floating poetic lines
-const floatingContainer = document.getElementById('floating-lines');
-
-const floatingTexts = [
-  "Always you… 🌙",
-  "I choose you again and again… 💫",
-  "Even silence feels like your voice… ❤️",
-  "A heartbeat whispers your name… 💛",
-  "I feel you in the quiet spaces… 🌿"
+const poeticLines = [
+    "A brushstroke of fate.",
+    "Colors bleeding into one another.",
+    "Sketching a future with you.",
+    "The art of being known.",
+    "Our story is my masterpiece.",
+    "Fine lines and soft shadows.",
+    "Chaque jour est un nouveau départ.", /* French: Every day is a new beginning */
+    "Tu es mon chef-d'œuvre." /* French: You are my masterpiece */
 ];
+
+// Add splashes
+document.querySelectorAll('.page').forEach(page => {
+    if (!page.classList.contains('flip-container')) {
+        const splash = document.createElement('div');
+        splash.className = 'watercolor-splash';
+        page.appendChild(splash);
+    }
+});
+
+// Observer
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            if(entry.target.id === 'page4') {
+                setTimeout(() => {
+                    document.getElementById('finalPage').classList.add('flipped');
+                }, 3000);
+            }
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.page').forEach(page => observer.observe(page));
+
+// Random Floating Lines
+window.addEventListener('scroll', () => {
+    if (Math.random() > 0.985) createFloatingLine();
+});
 
 function createFloatingLine() {
     const line = document.createElement('div');
     line.className = 'floating-line';
-    line.innerText = floatingTexts[Math.floor(Math.random() * floatingTexts.length)];
+    line.innerText = poeticLines[Math.floor(Math.random() * poeticLines.length)];
+    line.style.top = Math.random() * 80 + 10 + "%";
+    line.style.right = "-300px";
+    document.body.appendChild(line);
 
-    const startTop = window.scrollY + Math.random() * window.innerHeight;
-    line.style.top = startTop + 'px';
+    setTimeout(() => {
+        line.style.transform = "translateX(-95vw)";
+        line.style.transition = "transform 12s linear, opacity 10s ease";
+    }, 100);
 
-    const startX = Math.random() > 0.5 ? -300 : window.innerWidth + 300;
-    line.style.left = startX + 'px';
-
-    floatingContainer.appendChild(line);
-
-    line.style.opacity = 1;
-    line.style.transition = 'transform 2s ease-out, opacity 2s ease-out';
-    line.style.transform = 'translateX(' + (startX > 0 ? -startX + 20 : -startX + 20) + 'px)';
-
-    setTimeout(() => line.remove(), 6000);
+    setTimeout(() => { line.style.opacity = "0"; }, 6000);
+    setTimeout(() => { line.remove(); }, 13000);
 }
-
-window.addEventListener('scroll', () => {
-    if (Math.random() > 0.85) createFloatingLine();
-
-    // Page flip trigger
-    const lastPage = document.getElementById('final-page');
-    const lastPageTop = lastPage.getBoundingClientRect().top;
-
-    if (lastPageTop < window.innerHeight * 0.3) {
-        document.getElementById('page-flip').classList.add('active');
-    }
-});
