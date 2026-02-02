@@ -8,15 +8,14 @@ body, html {
     padding: 0;
     background-color: var(--night-sky) !important;
     color: var(--moonlight);
-    /* This sets the entire page to the requested font style */
     font-family: 'Playfair Display', serif;
     font-style: italic; 
     overflow-x: hidden;
 }
 
 @keyframes stardustFade {
-    0% { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); text-shadow: 0 0 20px #fff; }
-    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    0% { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(10px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
 @keyframes twinkle {
@@ -42,42 +41,39 @@ body, html {
 }
 
 .story-section.visible {
-    animation: stardustFade 4s ease-out forwards;
+    animation: stardustFade 3.5s ease-out forwards;
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 4rem;
-    font-style: normal; /* Keeps headers clean and distinct */
+    font-size: 3.5rem;
+    font-style: normal;
     margin-bottom: 20px;
 }
 
 p {
-    font-size: 1.8rem;
-    line-height: 1.9;
+    font-size: 1.6rem;
+    line-height: 1.7;
 }
 
 em {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     display: block;
-    margin: 12px 0;
+    margin: 10px 0;
 }
 
 .signature {
-    margin-top: 60px;
+    margin-top: 40px;
     font-family: 'Dancing Script', cursive;
-    font-size: 3.2rem;
+    font-size: 2.8rem;
     font-style: normal;
-    color: #fff;
 }
 
-/* Floating French Easter Egg */
-.floating-line {
-    position: fixed;
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.2);
-    pointer-events: none;
-    z-index: 5;
-    white-space: nowrap;
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    p { font-size: 1.3rem; }
+    .signature { font-size: 2.2rem; }
+    .story-section { padding: 0 8%; }
 }
