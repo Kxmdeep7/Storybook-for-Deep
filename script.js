@@ -1,4 +1,3 @@
-// Function to create 150 unique twinkling stars
 function initStars() {
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
@@ -14,16 +13,34 @@ function initStars() {
     }
 }
 
-// Function to make text fade in as she scrolls
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+        } else {
+            entry.target.classList.remove('visible');
         }
     });
 }, { threshold: 0.4 });
 
 document.querySelectorAll('.story-section').forEach(s => observer.observe(s));
 
-// Trigger stars when page loads
+// Floating surprise line: "You are my masterpiece" in French
+function createFloatingFrench() {
+    if (Math.random() > 0.99) {
+        const line = document.createElement('div');
+        line.className = 'floating-line';
+        line.innerText = "Tu es mon chef-d'œuvre.";
+        line.style.top = Math.random() * 80 + 10 + "%";
+        line.style.right = "-200px";
+        document.body.appendChild(line);
+        setTimeout(() => {
+            line.style.transform = "translateX(-110vw)";
+            line.style.transition = "transform 15s linear, opacity 10s ease";
+        }, 100);
+        setTimeout(() => line.remove(), 16000);
+    }
+}
+
+window.addEventListener('scroll', createFloatingFrench);
 window.onload = initStars;
