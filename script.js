@@ -1,9 +1,9 @@
 function initStars() {
-    const starCount = 150;
+    const starCount = 80; // Slightly fewer stars for better mobile performance
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        const size = Math.random() * 3 + 'px';
+        const size = Math.random() * 2 + 'px';
         star.style.width = size;
         star.style.height = size;
         star.style.top = Math.random() * 100 + 'vh';
@@ -17,30 +17,10 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-        } else {
-            entry.target.classList.remove('visible');
         }
     });
-}, { threshold: 0.4 });
+}, { threshold: 0.2 }); // Trigger earlier on mobile
 
 document.querySelectorAll('.story-section').forEach(s => observer.observe(s));
 
-// Floating surprise line: "You are my masterpiece" in French
-function createFloatingFrench() {
-    if (Math.random() > 0.99) {
-        const line = document.createElement('div');
-        line.className = 'floating-line';
-        line.innerText = "Tu es mon chef-d'œuvre.";
-        line.style.top = Math.random() * 80 + 10 + "%";
-        line.style.right = "-200px";
-        document.body.appendChild(line);
-        setTimeout(() => {
-            line.style.transform = "translateX(-110vw)";
-            line.style.transition = "transform 15s linear, opacity 10s ease";
-        }, 100);
-        setTimeout(() => line.remove(), 16000);
-    }
-}
-
-window.addEventListener('scroll', createFloatingFrench);
 window.onload = initStars;
