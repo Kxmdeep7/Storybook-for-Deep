@@ -1,50 +1,63 @@
-const linesPerScroll = [
-  [
-    "Even silence feels like your voice… 🌙",
-    "Every heartbeat whispers your name… 💛",
-    "I choose you again and again… 💫"
-  ],
-  [
-    "The night holds you gently in my thoughts… 🌌",
-    "Soft whispers drift like ink across my heart… ✨"
-  ],
-  [
-    "You are the poetry my soul hums… ❤️",
-    "I feel you in the quiet spaces… 🌿"
-  ],
-  [
-    "Sleep peacefully, knowing you are loved… 🌙",
-    "In every heartbeat, you are there… 💖"
-  ]
-];
+// Fade-in sections
+const pages = document.querySelectorAll('.page');
 
-function createFloatingLine(pageIndex) {
-  const line = document.createElement('div');
-  line.className = 'floating-line handwriting';
-  const lines = linesPerScroll[pageIndex];
-  line.innerText = lines[Math.floor(Math.random() * lines.length)];
+function checkVisible() {
+  const triggerBottom = window.innerHeight * 0.85;
 
-  line.style.top = (window.scrollY + Math.random() * window.innerHeight) + "px";
-  line.style.left = Math.random() > 0.5 ? "-300px" : "100%";
+  pages.forEach(page => {
+    const pageTop = page.getBoundingClientRect().top;
 
-  document.body.appendChild(line);
-
-  const direction = line.style.left === "-300px" ? 'left' : 'right';
-  line.style.transition = "all 6s linear";
-  setTimeout(() => {
-    if(direction === 'left') line.style.left = "100%";
-    else line.style.left = "-300px";
-    line.style.opacity = 1;
-  }, 50);
-
-  setTimeout(() => line.remove(), 6000);
+    if (pageTop < triggerBottom) {
+      page.classList.add('visible');
+    }
+  });
 }
 
-window.addEventListener('scroll', () => {
-  let pageIndex = 0;
-  if(window.location.href.includes('page2')) pageIndex = 1;
-  else if(window.location.href.includes('page3')) pageIndex = 2;
-  else if(window.location.href.includes('page4')) pageIndex = 3;
+window.addEventListener('scroll', checkVisible);
+window.addEventListener('load', checkVisible);
 
-  if(Math.random() > 0.7) createFloatingLine(pageIndex);
+// Floating lines
+const floatingContainer = document.getElementById('floating-lines');
+const floatingTexts = [
+  "Always you… 🌙",
+  "I choose you again and again… 💫",
+  "Even silence feels like your voice… ❤️",
+  "A heartbeat whispers your name… 💛",
+  "I feel you in the quiet spaces… 🌿"
+];
+
+function createFloatingLine() {
+  const line = document.createElement('div');
+  line.className = 'floating-line';
+  line.innerText = floatingTexts[Math.floor(Math.random() * floatingTexts.length)];
+
+  const startTop = window.scrollY + Math.random() * window.innerHeight;
+  line.style.top = startTop + 'px';
+
+  floatingContainer.appendChild(line);
+
+  // Animate floating line: appear + stop at left
+  line.style.opacity = 1;
+  line.style.transition = 'transform 2s ease-out, opacity 2s ease-out';
+  line.style.transform = 'translateX(20px)'; // stops slightly to the right for "fixed" left effect
+
+  // Remove after 6s
+  setTimeout(() => {
+    line.remove();
+  }, 6000);
+}
+
+// Randomly create floating lines while scrolling
+window.addEventListener('scroll', () => {
+  if (Math.random() > 0.85) {
+    createFloatingLine();
+  }
+
+  // Check if we reached last section for page flip
+  const lastPage = document.getElementById('final-page');
+  const lastPageTop = lastPage.getBoundingClientRect().top;
+
+  if (lastPageTop < window.innerHeight * 0.3) {
+    document.getElementById('page-flip').classList.add('active');
+  }
 });
