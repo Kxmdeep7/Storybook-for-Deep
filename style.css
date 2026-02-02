@@ -8,8 +8,15 @@ body, html {
     padding: 0;
     background-color: var(--night-sky) !important;
     color: var(--moonlight);
+    /* This sets the entire page to the requested font style */
     font-family: 'Playfair Display', serif;
+    font-style: italic; 
     overflow-x: hidden;
+}
+
+@keyframes stardustFade {
+    0% { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); text-shadow: 0 0 20px #fff; }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 }
 
 @keyframes twinkle {
@@ -22,7 +29,6 @@ body, html {
     background: white;
     border-radius: 50%;
     z-index: 1;
-    pointer-events: none;
 }
 
 .story-section {
@@ -31,36 +37,47 @@ body, html {
     align-items: center;
     justify-content: center;
     padding: 0 10%;
-    position: relative;
-    z-index: 10;
-    opacity: 0; /* Starts invisible for the fade-in effect */
-    transition: opacity 2.5s ease;
+    text-align: center;
+    opacity: 0;
 }
 
 .story-section.visible {
-    opacity: 1;
-}
-
-.text-box {
-    max-width: 800px;
-    text-align: center;
+    animation: stardustFade 4s ease-out forwards;
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
     font-size: 4rem;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    margin-bottom: 30px;
+    font-style: normal; /* Keeps headers clean and distinct */
+    margin-bottom: 20px;
 }
 
 p {
     font-size: 1.8rem;
-    line-height: 1.8;
+    line-height: 1.9;
+}
+
+em {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
+    display: block;
+    margin: 12px 0;
 }
 
 .signature {
-    margin-top: 50px;
+    margin-top: 60px;
     font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 3.2rem;
+    font-style: normal;
+    color: #fff;
+}
+
+/* Floating French Easter Egg */
+.floating-line {
+    position: fixed;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 5;
+    white-space: nowrap;
 }
