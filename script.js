@@ -1,40 +1,49 @@
+// Poetic Lines for the "Shooting Star" effect
 const poeticLines = [
-    "A brushstroke of fate.",
-    "Colors bleeding into one another.",
-    "Sketching a future with you.",
-    "The art of being known.",
-    "Our story is my masterpiece.",
-    "Fine lines and soft shadows.",
-    "Chaque jour est un nouveau départ.", /* French: Every day is a new beginning */
-    "Tu es mon chef-d'œuvre." /* French: You are my masterpiece */
+    "Written in the stars...",
+    "Under the same moonlight.",
+    "A galaxy in your eyes.",
+    "The night is quiet, but my heart is loud.",
+    "Tracing constellations of us.",
+    "Always looking up, always finding you.",
+    "Mon cœur t'appartient."
 ];
 
-// Add splashes
-document.querySelectorAll('.page').forEach(page => {
-    if (!page.classList.contains('flip-container')) {
-        const splash = document.createElement('div');
-        splash.className = 'watercolor-splash';
-        page.appendChild(splash);
+// 1. Generate Twinkling Stars
+function initStars() {
+    const starCount = 100;
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random size, position, and animation delay
+        const size = Math.random() * 3 + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        
+        // Twinkle speed
+        const duration = Math.random() * 3 + 2 + 's';
+        star.style.animation = `twinkle ${duration} infinite ease-in-out`;
+        star.style.animationDelay = Math.random() * 5 + 's';
+        
+        document.body.appendChild(star);
     }
-});
+}
 
-// Observer
+// 2. Observer for Fade-in Sections
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            if(entry.target.id === 'page4') {
-                setTimeout(() => {
-                    document.getElementById('finalPage').classList.add('flipped');
-                }, 3000);
-            }
         }
     });
-}, { threshold: 0.5 });
+}, { threshold: 0.4 });
 
-document.querySelectorAll('.page').forEach(page => observer.observe(page));
+document.querySelectorAll('.story-section').forEach(section => observer.observe(section));
 
-// Random Floating Lines
+// 3. Floating Poetic Lines on Scroll
 window.addEventListener('scroll', () => {
     if (Math.random() > 0.985) createFloatingLine();
 });
@@ -44,14 +53,17 @@ function createFloatingLine() {
     line.className = 'floating-line';
     line.innerText = poeticLines[Math.floor(Math.random() * poeticLines.length)];
     line.style.top = Math.random() * 80 + 10 + "%";
-    line.style.right = "-300px";
+    line.style.right = "-350px";
     document.body.appendChild(line);
 
     setTimeout(() => {
-        line.style.transform = "translateX(-95vw)";
-        line.style.transition = "transform 12s linear, opacity 10s ease";
+        line.style.transform = "translateX(-115vw)";
+        line.style.transition = "transform 18s linear, opacity 12s ease";
     }, 100);
 
-    setTimeout(() => { line.style.opacity = "0"; }, 6000);
-    setTimeout(() => { line.remove(); }, 13000);
+    setTimeout(() => { line.style.opacity = "0"; }, 8000);
+    setTimeout(() => { line.remove(); }, 20000);
 }
+
+// Run star init on load
+window.onload = initStars;
