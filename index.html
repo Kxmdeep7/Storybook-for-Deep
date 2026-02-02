@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Storybook for Deep</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Unspoken Promise</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="book-container">
+    <div class="canvas-overlay"></div>
 
-  <!-- Page 1 -->
-  <section class="page">
-    <h1>The First Whisper 💫</h1>
-    <p>The rain falls quietly, leaving only us in a soft embrace.</p>
-    <p>Some memories never grow old; they just sit quietly in a corner of the heart.</p>
-  </section>
+    <main id="storybook">
+        <section class="page" id="page1">
+            <div class="content">
+                <h1>The First Whisper</h1>
+                <p>I used to think that love was a grand declaration, a loud song played for the world to hear. But then came the quiet—the way the room feels when you enter it, and the way the air softens. I realized then that the most beautiful things don't shout; they whisper.</p>
+            </div>
+        </section>
 
-  <!-- Page 2 -->
-  <section class="page">
-    <h1>The Unspoken Promise 💖</h1>
-    <p>We walk together without a destination, yet every step feels like home.</p>
-    <p>In your laughter, I see my whole world. When you are near, even time seems to stand still.</p>
-  </section>
+        <section class="page" id="page2">
+            <div class="content">
+                <h1>The Unspoken Promise</h1>
+                <p>It is in the small, heavy silences where I find the truth. A promise isn't always a ring or a word; sometimes, it’s just the way we look at the same horizon. It’s the vow to be the place where your soul can finally set down its heavy bags and simply... rest.</p>
+            </div>
+        </section>
 
-  <!-- Page 3 -->
-  <section class="page">
-    <h1>Emotional Honesty 🌿</h1>
-    <p>I was always afraid of being truly known. But with you, fear became a strange kind of peace.</p>
-    <p>You sat with me in the dark, loving every part of me, even the shadows I tried to hide.</p>
-  </section>
+        <section class="page" id="page3">
+            <div class="content">
+                <h1>Emotional Honesty</h1>
+                <p>To be loved is easy, but to be truly known is a quiet revolution. There is a rare poetry in the moments when we say nothing at all, yet understand everything. You are the only person who can hear the music I play when I’m alone, and for that, I am forever changed.</p>
+            </div>
+        </section>
 
-  <!-- Page 4 -->
-  <section class="page" id="final-page">
-    <h1>Quiet Ending 🌙</h1>
-    <p>You are my favorite “once upon a time,” and I hope you are my “ever after.”</p>
-    <p>Sleep peacefully, knowing you are loved, even when the world feels heavy.</p>
-    <p><em>In every heartbeat, you are there… ❤️</em></p>
-  </section>
+        <section class="page flip-container" id="page4">
+            <div class="book-page" id="finalPage">
+                <div class="content front">
+                    <h1>The Final Stroke</h1>
+                    <p>They say art is never finished, only abandoned. But with us, every day feels like adding a new, vibrant color to a canvas that never ends. You are the light that hits the subject just right.</p>
+                </div>
+                <div class="content back">
+                    <div class="signature-wrap">
+                        <h2 class="signature">To my muse,<br>Created with love.</h2>
+                        <p class="sub-signature">With all my heart, always yours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-</div>
-
-<!-- Floating text container -->
-<div id="floating-lines"></div>
-
-<!-- Page flip overlay -->
-<div id="page-flip">
-  <div class="flip-left"></div>
-  <div class="flip-right"></div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
